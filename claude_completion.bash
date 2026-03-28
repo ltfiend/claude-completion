@@ -24,7 +24,7 @@ _claude_completion() {
     local subcmd2="${cmd_chain[1]:-}"
 
     # ── Top-level subcommands ──
-    local subcommands="agents auth auto-mode doctor install mcp plugin plugins setup-token update upgrade"
+    local subcommands="agents auth auto-mode doctor install mcp plugin plugins remote-control setup-token update upgrade"
 
     # ── Top-level flags ──
     local top_flags="
@@ -67,6 +67,7 @@ _claude_completion() {
         --permission-mode
         --plugin-dir
         -p --print
+        --rc --remote-control
         --replay-user-messages
         -r --resume
         --session-id
@@ -280,6 +281,15 @@ _claude_completion() {
     # update / upgrade
     if [[ "$subcmd" == "update" || "$subcmd" == "upgrade" ]]; then
         COMPREPLY=($(compgen -W "--help -h" -- "$cur"))
+        return
+    fi
+
+    # remote-control
+    if [[ "$subcmd" == "remote-control" ]]; then
+        COMPREPLY=($(compgen -W "--capacity -n --name --sandbox --no-sandbox --spawn --verbose --help -h" -- "$cur"))
+        if [[ "$prev" == "--spawn" ]]; then
+            COMPREPLY=($(compgen -W "same-dir worktree" -- "$cur"))
+        fi
         return
     fi
 
