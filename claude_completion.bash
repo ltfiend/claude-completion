@@ -343,5 +343,3 @@ _claude_completion() {
 }
 
 complete -o default -o bashdefault -F _claude_completion claude
-# Also complete the 'cc' alias if it exists
-complete -o default -o bashdefault -F _claude_completion cc

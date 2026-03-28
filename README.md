@@ -35,7 +35,7 @@ cp claude_completion.bash ~/.local/share/bash-completion/completions/claude
 
 ## Usage
 
-Type `claude` or `cc` followed by <kbd>Tab</kbd> to see available completions:
+Type `claude` followed by <kbd>Tab</kbd> to see available completions:
 
 ```bash
 claude --m<Tab>        # completes --model, --max-turns, etc.
