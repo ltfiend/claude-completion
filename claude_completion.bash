@@ -38,14 +38,17 @@ _claude_completion() {
         --bare
         --betas
         --brief
+        --channels
         --chrome
         -c --continue
+        --dangerously-load-development-channels
         --dangerously-skip-permissions
         -d --debug
         --debug-file
         --disable-slash-commands
         --disallowedTools --disallowed-tools
         --effort
+        --enable-auto-mode
         --fallback-model
         --file
         --fork-session
@@ -53,8 +56,11 @@ _claude_completion() {
         -h --help
         --ide
         --include-partial-messages
+        --init
+        --init-only
         --input-format
         --json-schema
+        --maintenance
         --max-budget-usd
         --max-turns
         --mcp-config
@@ -65,9 +71,11 @@ _claude_completion() {
         --no-session-persistence
         --output-format
         --permission-mode
+        --permission-prompt-tool
         --plugin-dir
         -p --print
         --rc --remote-control
+        --remote
         --replay-user-messages
         -r --resume
         --session-id
@@ -76,6 +84,8 @@ _claude_completion() {
         --strict-mcp-config
         --system-prompt
         --system-prompt-file
+        --teammate-mode
+        --teleport
         --tmux
         --tools
         --verbose
@@ -115,7 +125,10 @@ _claude_completion() {
                 return
                 ;;
             critique)
-                COMPREPLY=($(compgen -W "--help -h" -- "$cur"))
+                COMPREPLY=($(compgen -W "--model --help -h" -- "$cur"))
+                if [[ "$prev" == "--model" ]]; then
+                    COMPREPLY=($(compgen -W "sonnet opus haiku claude-sonnet-4-6 claude-opus-4-6 claude-haiku-4-5-20251001" -- "$cur"))
+                fi
                 return
                 ;;
             *)
@@ -335,6 +348,10 @@ _claude_completion() {
             ;;
         --mcp-config|--settings|--system-prompt-file|--append-system-prompt-file|--debug-file)
             _filedir
+            return
+            ;;
+        --teammate-mode)
+            COMPREPLY=($(compgen -W "auto in-process tmux" -- "$cur"))
             return
             ;;
         --tmux)
